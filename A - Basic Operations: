@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <cmath>
+
 using namespace std;
 
 
@@ -73,6 +74,21 @@ double arctangent(double value) {
     return atan(value);
 }
 
+// Functions for Algebraic Operations
+
+long long factorial(int n) {
+    long long result = 1;
+    for (int i = 2; i <= n; ++i) {
+        result *= i;
+    }
+    return result;
+}
+
+double nthRoot(double value, double n) {
+    return pow(value, 1.0 / n);
+}
+
+
 int main()
 {
   int operation; 
@@ -83,7 +99,9 @@ int main()
   cout << "Select The Operation by Entering their Number"<< endl; 
   cout << "1. Add \n2. Subtract \n3. Multiply \n4. Divide\n"; 
   cout << "5. Sine\n6. Cosine\n7. Tangent\n";
-    cout << "8. Arcsine\n9. Arccosine\n10. Arctangent\n";
+  cout << "8. Arcsine\n9. Arccosine\n10. Arctangent\n";
+  cout << "11. Exponentiation\n12. Square root\n13. Cube root\n";
+cout << "14. Nth root\n15. Factorial\n16. Absolute value\n";
   
   cin>> operation; 
   
@@ -138,6 +156,42 @@ int main()
             cout << "Enter value: ";
             cin >> angleValue;
             cout << "Arctangent: " << arctangent(angleValue) << " radians" << endl;
+            break;
+
+        case 11:
+            cout << "Enter base and exponent: ";
+            cin >> num1 >> num2;
+            cout << "Result: " << pow(num1, num2) << endl;
+            break;
+        case 12:
+            cout << "Enter number: ";
+            cin >> num1;
+            cout << "Square Root: " << sqrt(num1) << endl;
+            break;
+        case 13:
+            cout << "Enter number: ";
+            cin >> num1;
+            cout << "Cube Root: " << cbrt(num1) << endl;
+            break;
+        case 14:
+            cout << "Enter number and root: ";
+            cin >> num1 >> num2;
+            cout << "Nth Root: " << nthRoot(num1, num2) << endl;
+            break;
+        case 15:
+            int n;
+            cout << "Enter a non-negative integer: ";
+            cin >> n;
+            if (n >= 0) {
+                cout << "Factorial: " << factorial(n) << endl;
+            } else {
+                cout << "Error: Negative number for factorial." << endl;
+            }
+            break;
+        case 16:
+            cout << "Enter number: ";
+            cin >> num1;
+            cout << "Absolute Value: " << abs(num1) << endl;
             break;
       
       default:
