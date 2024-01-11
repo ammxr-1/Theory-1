@@ -1,9 +1,17 @@
 
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 
 // Functions for Basic Operations (Part A)
+
+void takeInput(double& num1, double& num2) {
+    cout << "Enter first number: ";
+    cin >> num1;
+    cout << "Enter second number: ";
+    cin >> num2;
+}
 
 double add(double a, double b) {
     return a+b;
@@ -25,39 +33,112 @@ double divide(double a, double b) {
     return a/b;
 }
 
+double toRadians(double degree) {
+    return degree * (M_PI / 180.0);
+}
+
+double sine(double angle, bool isDegree = true) {
+    if (isDegree) {
+        angle = toRadians(angle);
+    }
+    return sin(angle);
+}
+
+double cosine(double angle, bool isDegree = true) {
+    if (isDegree) {
+        angle = toRadians(angle);
+    }
+    return cos(angle);
+}
+
+double tangent(double angle, bool isDegree = true) {
+    if (isDegree) {
+        angle = toRadians(angle);
+    }
+    return tan(angle);
+}
+
+double arcsine(double value) {
+    // arcsin returns in radians
+    return asin(value);
+}
+
+double arccosine(double value) {
+    // arccos returns in radians
+    return acos(value);
+}
+
+double arctangent(double value) {
+    // arctan returns in radians
+    return atan(value);
+}
 
 int main()
 {
   int operation; 
  
   double num1, num2; 
+  double angleValue;
   
   cout << "Select The Operation by Entering their Number"<< endl; 
   cout << "1. Add \n2. Subtract \n3. Multiply \n4. Divide\n"; 
-  cin>> operation; 
+  cout << "5. Sine\n6. Cosine\n7. Tangent\n";
+    cout << "8. Arcsine\n9. Arccosine\n10. Arctangent\n";
   
-  cout << "Enter first number: ";
-    cin >> num1;
-    cout << "Enter second number: ";
-    cin >> num2;
+  cin>> operation; 
   
   switch (operation) {
       
       case 1:
+      takeInput(num1, num2);
       cout <<" Result: "<< add(num1, num2)<<endl; 
       break;
       
       case 2:
+     takeInput(num1, num2);
       cout <<" Result: "<<  subtract(num1, num2)<<endl; 
       break;
       
       case 3:
+      takeInput(num1, num2);
       cout <<" Result: "<<  multiply(num1, num2)<<endl; 
       break;
       
       case 4:
-      cout <<" Result: "<<  divide(num1, num2)<<endl; 
-      break;
+      takeInput(num1, num2);
+      cout <<" Result: "<<  divide(num1, num2)<<endl;
+      break; 
+      
+      case 5:
+            cout << "Enter angle in degrees: ";
+            cin >> angleValue;
+            cout << "Sine: " << sine(angleValue) << endl;
+            break;
+        case 6:
+            cout << "Enter angle in degrees: ";
+            cin >> angleValue;
+            cout << "Cosine: " << cosine(angleValue) << endl;
+            break;
+        case 7:
+            cout << "Enter angle in degrees: ";
+            cin >> angleValue;
+            cout << "Tangent: " << tangent(angleValue) << endl;
+            break;
+        case 8:
+            cout << "Enter value: ";
+            cin >> angleValue;
+            cout << "Arcsine: " << arcsine(angleValue) << " radians" << endl;
+            break;
+        case 9:
+            cout << "Enter value: ";
+            cin >> angleValue;
+            cout << "Arccosine: " << arccosine(angleValue) << " radians" << endl;
+            break;
+        case 10:
+            cout << "Enter value: ";
+            cin >> angleValue;
+            cout << "Arctangent: " << arctangent(angleValue) << " radians" << endl;
+            break;
       
       default:
       cout << "Invalid Operator!"<< endl; 
