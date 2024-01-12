@@ -89,6 +89,23 @@ double nthRoot(double value, double n) {
 }
 
 
+// Functions for Logarithmic Operations
+double logBase10(double value) {
+    return log10(value);
+}
+
+double logBaseE(double value) {
+    return log(value);
+}
+
+double logCustomBase(double value, double base) {
+    if (base <= 0 || base == 1 || value <= 0) {
+        cout << "Error: Invalid base or value for logarithm." << endl;
+        return 0;
+    }
+    return log(value) / log(base);
+}
+
 int main()
 {
   int operation; 
@@ -101,7 +118,9 @@ int main()
   cout << "5. Sine\n6. Cosine\n7. Tangent\n";
   cout << "8. Arcsine\n9. Arccosine\n10. Arctangent\n";
   cout << "11. Exponentiation\n12. Square root\n13. Cube root\n";
-cout << "14. Nth root\n15. Factorial\n16. Absolute value\n";
+  cout << "14. Nth root\n15. Factorial\n16. Absolute value\n";
+  cout << "17. Logarithm (base 10)\n18. Natural logarithm (base e)\n";
+  cout << "19. Custom base logarithm\n";
   
   cin>> operation; 
   
@@ -192,6 +211,31 @@ cout << "14. Nth root\n15. Factorial\n16. Absolute value\n";
             cout << "Enter number: ";
             cin >> num1;
             cout << "Absolute Value: " << abs(num1) << endl;
+            break;
+
+        case 17:
+            cout << "Enter number: ";
+            cin >> num1;
+            if (num1 > 0) {
+                cout << "Logarithm (base 10): " << logBase10(num1) << endl;
+            } else {
+                cout << "Error: Logarithm for non-positive number." << endl;
+            }
+            break;
+        case 18:
+            cout << "Enter number: ";
+            cin >> num1;
+            if (num1 > 0) {
+                cout << "Natural logarithm (base e): " << logBaseE(num1) << endl;
+            } else {
+                cout << "Error: Logarithm for non-positive number." << endl;
+            }
+            break;
+        case 19:
+            double base;
+            cout << "Enter number and base: ";
+            cin >> num1 >> base;
+            cout << "Custom base logarithm: " << logCustomBase(num1, base) << endl;
             break;
       
       default:
