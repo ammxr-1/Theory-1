@@ -1,6 +1,9 @@
-
 #include <iostream>
 #include <cmath>
+#include <vector>
+#include <algorithm>
+#include <cmath>     
+#include <map>       
 
 using namespace std;
 
@@ -106,6 +109,72 @@ double logCustomBase(double value, double base) {
     return log(value) / log(base);
 }
 
+// Functions for Statistical Operations
+
+double mean(const vector<double>& nums) {
+    double sum = 0;
+    for (double num : nums) {
+        sum += num;
+    }
+    return sum / nums.size();
+}
+
+double median(vector<double> nums) {
+    sort(nums.begin(), nums.end());
+    size_t size = nums.size();
+    if (size % 2 == 0) {
+        return (nums[size / 2 - 1] + nums[size / 2]) / 2;
+    } else {
+        return nums[size / 2];
+    }
+}
+
+double mode(const vector<double>& nums) {
+    map<double, int> frequency;
+    for (double num : nums) {
+        frequency[num]++;
+    }
+
+    double mode = nums[0];
+    int maxCount = 0;
+    for (auto& elem : frequency) {
+        if (elem.second > maxCount) {
+            maxCount = elem.second;
+            mode = elem.first;
+        }
+    }
+    return mode;
+}
+
+double variance(const vector<double>& nums) {
+    double meanValue = mean(nums);
+    double sum = 0;
+    for (double num : nums) {
+        sum += pow(num - meanValue, 2);
+    }
+    return sum / nums.size();
+}
+
+double standardDeviation(const vector<double>& nums) {
+    return sqrt(variance(nums));
+}
+
+// Function to read multiple values into a vector
+vector<double> readVector() {
+    vector<double> nums;
+    int count;
+    double value;
+
+    cout << "Enter the number of values: ";
+    cin >> count;
+    cout << "Enter " << count << " numbers:" << endl;
+    for (int i = 0; i < count; ++i) {
+        cin >> value;
+        nums.push_back(value);
+    }
+    return nums;
+}
+
 int main()
 {
   int operation; 
@@ -121,8 +190,12 @@ int main()
   cout << "14. Nth root\n15. Factorial\n16. Absolute value\n";
   cout << "17. Logarithm (base 10)\n18. Natural logarithm (base e)\n";
   cout << "19. Custom base logarithm\n";
+  cout << "20. Mean\n21. Median\n22. Mode\n";
+  cout << "23. Standard Deviation\n24. Variance\n";
   
   cin>> operation; 
+
+   vector<double> numbers;
   
   switch (operation) {
       
@@ -236,6 +309,27 @@ int main()
             cout << "Enter number and base: ";
             cin >> num1 >> base;
             cout << "Custom base logarithm: " << logCustomBase(num1, base) << endl;
+            break;
+
+        case 20:
+            numbers = readVector();
+            cout << "Mean: " << mean(numbers) << endl;
+            break;
+        case 21:
+            numbers = readVector();
+            cout << "Median: " << median(numbers) << endl;
+            break;
+        case 22:
+            numbers = readVector();
+            cout << "Mode: " << mode(numbers) << endl;
+            break;
+        case 23:
+            numbers = readVector();
+            cout << "Standard Deviation: " << standardDeviation(numbers) << endl;
+            break;
+        case 24:
+            numbers = readVector();
+            cout << "Variance: " << variance(numbers) << endl;
             break;
       
       default:
