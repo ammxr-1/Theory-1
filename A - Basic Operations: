@@ -1,9 +1,10 @@
 #include <iostream>
 #include <cmath>
+#include <complex>
 #include <vector>
 #include <algorithm>
 #include <cmath>     
-#include <map>       
+#include <map>  
 
 using namespace std;
 
@@ -198,6 +199,15 @@ int lcm(int a, int b) {
     return (a / gcd(a, b)) * b;
 }
 
+// Function for Complex Number Operations 
+
+void printComplex(const complex<double>& c) {
+    cout << c.real();
+    if (c.imag() >= 0) cout << "+";
+    cout << c.imag() << "i" << endl;
+}
+
+
 int main()
 {
   int operation; 
@@ -217,11 +227,15 @@ int main()
   cout << "23. Standard Deviation\n24. Variance\n";
   cout << "25. Modulus\n26. Percentage\n27. GCD\n";
   cout << "28. LCM\n29. Floor\n30. Ceiling\n";
+  cout << "31. Add Complex Numbers\n32. Subtract Complex Numbers\n";
+  cout << "33. Multiply Complex Numbers\n34. Divide Complex Numbers\n";
+  cout << "35. Conjugate of a Complex Number\n";
   
   cin>> operation; 
 
    vector<double> numbers;
-int num3;
+   int num3;
+   complex<double> complex1, complex2, result;
   
   switch (operation) {
       
@@ -358,7 +372,7 @@ int num3;
             cout << "Variance: " << variance(numbers) << endl;
             break;
 
-case 25:
+        case 25:
             cout << "Enter two integers: ";
             cin >> num1 >> num3;
             cout << "Modulus: " << modOperation(num1, num3) << endl;
@@ -387,6 +401,45 @@ case 25:
             cout << "Enter a decimal number: ";
             cin >> num1;
             cout << "Ceiling: " << ceil(num1) << endl;
+            break;
+
+        case 31:
+            cout << "Enter real and imaginary parts of first complex number: ";
+            cin >> complex1;
+            cout << "Enter real and imaginary parts of second complex number: ";
+            cin >> complex2;
+            result = complex1 + complex2;
+            printComplex(result);
+            break;
+        case 32:
+            cout << "Enter real and imaginary parts of first complex number: ";
+            cin >> complex1;
+            cout << "Enter real and imaginary parts of second complex number: ";
+            cin >> complex2;
+            result = complex1 - complex2;
+            printComplex(result);
+            break;
+        case 33:
+            cout << "Enter real and imaginary parts of first complex number: ";
+            cin >> complex1;
+            cout << "Enter real and imaginary parts of second complex number: ";
+            cin >> complex2;
+            result = complex1 * complex2;
+            printComplex(result);
+            break;
+        case 34:
+            cout << "Enter real and imaginary parts of first complex number: ";
+            cin >> complex1;
+            cout << "Enter real and imaginary parts of second complex number: ";
+            cin >> complex2;
+            result = complex1 / complex2;
+            printComplex(result);
+            break;
+        case 35:
+            cout << "Enter real and imaginary parts of a complex number: ";
+            cin >> complex1;
+            result = conj(complex1);
+            printComplex(result);
             break;
       
       default:
