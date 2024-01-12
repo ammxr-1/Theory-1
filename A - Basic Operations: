@@ -381,6 +381,57 @@ string binaryXOR(const string& a, const string& b) {
     return intToBinary(numA ^ numB);
 }
 
+// Functions for Engineering Operations ( Part J )
+
+double convertLength(double value, string fromUnit, string toUnit) {
+    // Example: Convert between meters and feet
+    if (fromUnit == "m" && toUnit == "ft") {
+        return value * 3.28084; // meters to feet
+    } else if (fromUnit == "ft" && toUnit == "m") {
+        return value / 3.28084; // feet to meters
+    }
+    // Add more unit conversions as needed
+    return value;
+}
+
+double convertMass(double value, string fromUnit, string toUnit) {
+    // Example: Convert between kilograms and pounds
+    if (fromUnit == "kg" && toUnit == "lb") {
+        return value * 2.20462; // kilograms to pounds
+    } else if (fromUnit == "lb" && toUnit == "kg") {
+        return value / 2.20462; // pounds to kilograms
+    }
+    // Add more unit conversions as needed
+    return value;
+}
+
+double convertTemperature(double value, string fromUnit, string toUnit) {
+    // Convert between Celsius and Fahrenheit
+    if (fromUnit == "C" && toUnit == "F") {
+        return value * 9 / 5 + 32; // Celsius to Fahrenheit
+    } else if (fromUnit == "F" && toUnit == "C") {
+        return (value - 32) * 5 / 9; // Fahrenheit to Celsius
+    }
+    // Add more temperature conversions as needed
+    return value;
+}
+
+// Coordinate conversions
+
+pair<double, double> polarToRectangular(double radius, double angleInDegrees) {
+    double angleInRadians = angleInDegrees * M_PI / 180.0;
+    double x = radius * cos(angleInRadians);
+    double y = radius * sin(angleInRadians);
+    return make_pair(x, y);
+}
+
+pair<double, double> rectangularToPolar(double x, double y) {
+    double radius = sqrt(x * x + y * y);
+    double angleInDegrees = atan2(y, x) * 180.0 / M_PI;
+    return make_pair(radius, angleInDegrees);
+}
+
+
 int main()
 {
   int operation; 
@@ -407,7 +458,9 @@ int main()
   cout << "39. Transpose Matrix\n40. Determinant of Matrix\n41. Inverse of Matrix\n";
   cout << "42. Binary Addition\n43. Binary Subtraction\n44. Binary Multiplication\n";
   cout << "45. Binary Division\n46. Binary AND\n47. Binary OR\n48. Binary XOR\n";
-  
+  cout << "49. Unit Conversion\n50. Coordinate Conversion\n";  
+
+
   cin>> operation; 
 
    vector<double> numbers;
@@ -719,6 +772,28 @@ int main()
             cin >> binary1 >> binary2;
             cout << "Result: " << binaryXOR(binary1, binary2) << endl;
             break;
+
+        case 49: { // Unit Conversion
+            double value;
+            string fromUnit, toUnit;
+            cout << "Enter value, from unit, to unit (e.g., 10 kg lb): ";
+            cin >> value >> fromUnit >> toUnit;
+            // Add logic to choose between length, mass, and temperature
+            cout << "Converted value: " << convertLength(value, fromUnit, toUnit) << endl; // Example usage
+            break;
+        }
+
+        case 50: { // Coordinate Conversion
+            double num1, num2;
+            cout << "Enter radius and angle (for polar to rectangular), or x and y (for rectangular to polar): ";
+            cin >> num1 >> num2;
+            pair<double, double> result;
+            // Add logic to choose between polarToRectangular and rectangularToPolar
+            result = polarToRectangular(num1, num2); // Example usage
+            cout << "Converted coordinates: (" << result.first << ", " << result.second << ")" << endl;
+            break;
+        }
+
       
       default:
       cout << "Invalid Operator!"<< endl; 
