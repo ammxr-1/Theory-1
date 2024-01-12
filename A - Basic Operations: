@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>     
 #include <map>  
+#include <stdexcept> 
 
 using namespace std;
 
@@ -207,6 +208,121 @@ void printComplex(const complex<double>& c) {
     cout << c.imag() << "i" << endl;
 }
 
+// Functions for Matrix Operations (Part H) 
+
+typedef vector<vector<double>> Matrix;
+
+Matrix readMatrix() {
+    int rows, cols;
+    cout << "Enter the number of rows and columns: ";
+    cin >> rows >> cols;
+
+    Matrix mat(rows, vector<double>(cols));
+    cout << "Enter matrix elements row by row:" << endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cin >> mat[i][j];
+        }
+    }
+    return mat;
+}
+
+void printMatrix(const Matrix& mat) {
+    for (const auto& row : mat) {
+        for (double elem : row) {
+            cout << elem << " ";
+        }
+        cout << endl;
+    }
+}
+
+Matrix addMatrices(const Matrix& a, const Matrix& b) {
+    if (a.size() != b.size() || a[0].size() != b[0].size()) {
+        throw invalid_argument("Matrices dimensions do not match for addition.");
+    }
+
+    Matrix result(a.size(), vector<double>(a[0].size()));
+    for (size_t i = 0; i < a.size(); ++i) {
+        for (size_t j = 0; j < a[i].size(); ++j) {
+            result[i][j] = a[i][j] + b[i][j];
+        }
+    }
+    return result;
+}
+
+Matrix subtractMatrices(const Matrix& a, const Matrix& b) {
+    if (a.size() != b.size() || a[0].size() != b[0].size()) {
+        throw invalid_argument("Matrices dimensions do not match for subtraction.");
+    }
+
+    Matrix result(a.size(), vector<double>(a[0].size()));
+    for (size_t i = 0; i < a.size(); ++i) {
+        for (size_t j = 0; j < a[i].size(); ++j) {
+            result[i][j] = a[i][j] - b[i][j];
+        }
+    }
+    return result;
+}
+
+Matrix multiplyMatrices(const Matrix& a, const Matrix& b) {
+    if (a[0].size() != b.size()) {
+        throw invalid_argument("Matrices dimensions do not match for multiplication.");
+    }
+
+    Matrix result(a.size(), vector<double>(b[0].size(), 0));
+    for (size_t i = 0; i < result.size(); ++i) {
+        for (size_t j = 0; j < result[i].size(); ++j) {
+            for (size_t k = 0; k < a[0].size(); ++k) {
+                result[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    return result;
+}
+
+Matrix transposeMatrix(const Matrix& mat) {
+    Matrix result(mat[0].size(), vector<double>(mat.size()));
+    for (size_t i = 0; i < mat.size(); ++i) {
+        for (size_t j = 0; j < mat[i].size(); ++j) {
+            result[j][i] = mat[i][j];
+        }
+    }
+    return result;
+}
+
+double determinant(const Matrix& mat) {
+    if (mat.size() != mat[0].size()) {
+        throw invalid_argument("Determinant can only be calculated for square matrices.");
+    }
+
+    if (mat.size() == 2) {
+        // Determinant for 2x2 matrix
+        return mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
+    } else {
+        // Add implementation for larger matrices if needed
+        throw invalid_argument("Currently, only 2x2 matrices are supported.");
+    }
+}
+
+Matrix invertMatrix(const Matrix& mat) {
+    if (mat.size() != 2 || mat[0].size() != 2) {
+        throw invalid_argument("Currently, only inversion of 2x2 matrices is supported.");
+    }
+
+    double det = determinant(mat);
+    if (det == 0) {
+        throw invalid_argument("Matrix is not invertible (determinant is zero).");
+    }
+
+    Matrix result(2, vector<double>(2));
+    result[0][0] = mat[1][1] / det;
+    result[0][1] = -mat[0][1] / det;
+    result[1][0] = -mat[1][0] / det;
+    result[1][1] = mat[0][0] / det;
+
+    return result;
+}
+
 
 int main()
 {
@@ -230,12 +346,15 @@ int main()
   cout << "31. Add Complex Numbers\n32. Subtract Complex Numbers\n";
   cout << "33. Multiply Complex Numbers\n34. Divide Complex Numbers\n";
   cout << "35. Conjugate of a Complex Number\n";
+  cout << "36. Add Matrices\n37. Subtract Matrices\n38. Multiply Matrices\n";
+  cout << "39. Transpose Matrix\n40. Determinant of Matrix\n41. Inverse of Matrix\n";
   
   cin>> operation; 
 
    vector<double> numbers;
    int num3;
    complex<double> complex1, complex2, result;
+   Matrix matrix1, matrix2, resultMatrix;
   
   switch (operation) {
       
@@ -440,6 +559,65 @@ int main()
             cin >> complex1;
             result = conj(complex1);
             printComplex(result);
+            break;
+
+        case 36: // Add Matrices
+            matrix1 = readMatrix();
+            matrix2 = readMatrix();
+            try {
+                resultMatrix = addMatrices(matrix1, matrix2);
+                printMatrix(resultMatrix);
+            } catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+            }
+            break;
+
+        case 37: // Subtract Matrices
+            matrix1 = readMatrix();
+            matrix2 = readMatrix();
+            try {
+                resultMatrix = subtractMatrices(matrix1, matrix2);
+                printMatrix(resultMatrix);
+            } catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+            }
+            break;
+
+        case 38: // Multiply Matrices
+            matrix1 = readMatrix();
+            matrix2 = readMatrix();
+            try {
+                resultMatrix = multiplyMatrices(matrix1, matrix2);
+                printMatrix(resultMatrix);
+            } catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+            }
+            break;
+
+        case 39: // Transpose Matrix
+            matrix1 = readMatrix();
+            resultMatrix = transposeMatrix(matrix1);
+            printMatrix(resultMatrix);
+            break;
+
+        case 40: // Determinant of Matrix
+            matrix1 = readMatrix();
+            try {
+                double det = determinant(matrix1);
+                cout << "Determinant: " << det << endl;
+            } catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+            }
+            break;
+
+        case 41: // Inverse of Matrix
+            matrix1 = readMatrix();
+            try {
+                resultMatrix = invertMatrix(matrix1);
+                printMatrix(resultMatrix);
+            } catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+            }
             break;
       
       default:
