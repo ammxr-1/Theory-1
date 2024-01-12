@@ -175,6 +175,29 @@ vector<double> readVector() {
     return nums;
 }
 
+// Addtional Functions (Part F) 
+
+int modOperation(int a, int b) {
+    return a % b;
+}
+
+double percentage(double value, double total) {
+    return (value / total) * 100;
+}
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int lcm(int a, int b) {
+    return (a / gcd(a, b)) * b;
+}
+
 int main()
 {
   int operation; 
@@ -192,10 +215,13 @@ int main()
   cout << "19. Custom base logarithm\n";
   cout << "20. Mean\n21. Median\n22. Mode\n";
   cout << "23. Standard Deviation\n24. Variance\n";
+  cout << "25. Modulus\n26. Percentage\n27. GCD\n";
+  cout << "28. LCM\n29. Floor\n30. Ceiling\n";
   
   cin>> operation; 
 
    vector<double> numbers;
+int num3;
   
   switch (operation) {
       
@@ -330,6 +356,37 @@ int main()
         case 24:
             numbers = readVector();
             cout << "Variance: " << variance(numbers) << endl;
+            break;
+
+case 25:
+            cout << "Enter two integers: ";
+            cin >> num1 >> num3;
+            cout << "Modulus: " << modOperation(num1, num3) << endl;
+            break;
+        case 26:
+            cout << "Enter value and total: ";
+            cin >> num1 >> num2;
+            cout << "Percentage: " << percentage(num1, num2) << " %" << endl;
+            break;
+        case 27:
+            cout << "Enter two integers: ";
+            cin >> num1 >> num3;
+            cout << "GCD: " << gcd(num1, num3) << endl;
+            break;
+        case 28:
+            cout << "Enter two integers: ";
+            cin >> num1 >> num3;
+            cout << "LCM: " << lcm(num1, num3) << endl;
+            break;
+        case 29:
+            cout << "Enter a decimal number: ";
+            cin >> num1;
+            cout << "Floor: " << floor(num1) << endl;
+            break;
+        case 30:
+            cout << "Enter a decimal number: ";
+            cin >> num1;
+            cout << "Ceiling: " << ceil(num1) << endl;
             break;
       
       default:
