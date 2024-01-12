@@ -5,7 +5,9 @@
 #include <algorithm>
 #include <cmath>     
 #include <map>  
-#include <stdexcept> 
+#include <stdexcept>
+#include <bitset>
+#include <string>
 
 using namespace std;
 
@@ -324,6 +326,61 @@ Matrix invertMatrix(const Matrix& mat) {
 }
 
 
+//Functions for Binary Operations (Part I) 
+
+int binaryToInt(const string& binary) {
+    return stoi(binary, 0, 2);
+}
+
+string intToBinary(int number) {
+    return bitset<32>(number).to_string(); // Assuming we work with 32-bit integers
+}
+
+string binaryAddition(const string& a, const string& b) {
+    int numA = binaryToInt(a);
+    int numB = binaryToInt(b);
+    return intToBinary(numA + numB);
+}
+
+string binarySubtraction(const string& a, const string& b) {
+    int numA = binaryToInt(a);
+    int numB = binaryToInt(b);
+    return intToBinary(numA - numB);
+}
+
+string binaryMultiplication(const string& a, const string& b) {
+    int numA = binaryToInt(a);
+    int numB = binaryToInt(b);
+    return intToBinary(numA * numB);
+}
+
+string binaryDivision(const string& a, const string& b) {
+    int numA = binaryToInt(a);
+    int numB = binaryToInt(b);
+    if (numB == 0) {
+        throw invalid_argument("Division by zero is not allowed.");
+    }
+    return intToBinary(numA / numB);
+}
+
+string binaryAND(const string& a, const string& b) {
+    int numA = binaryToInt(a);
+    int numB = binaryToInt(b);
+    return intToBinary(numA & numB);
+}
+
+string binaryOR(const string& a, const string& b) {
+    int numA = binaryToInt(a);
+    int numB = binaryToInt(b);
+    return intToBinary(numA | numB);
+}
+
+string binaryXOR(const string& a, const string& b) {
+    int numA = binaryToInt(a);
+    int numB = binaryToInt(b);
+    return intToBinary(numA ^ numB);
+}
+
 int main()
 {
   int operation; 
@@ -348,6 +405,8 @@ int main()
   cout << "35. Conjugate of a Complex Number\n";
   cout << "36. Add Matrices\n37. Subtract Matrices\n38. Multiply Matrices\n";
   cout << "39. Transpose Matrix\n40. Determinant of Matrix\n41. Inverse of Matrix\n";
+  cout << "42. Binary Addition\n43. Binary Subtraction\n44. Binary Multiplication\n";
+  cout << "45. Binary Division\n46. Binary AND\n47. Binary OR\n48. Binary XOR\n";
   
   cin>> operation; 
 
@@ -355,7 +414,8 @@ int main()
    int num3;
    complex<double> complex1, complex2, result;
    Matrix matrix1, matrix2, resultMatrix;
-  
+   string binary1, binary2;
+
   switch (operation) {
       
       case 1:
@@ -618,6 +678,46 @@ int main()
             } catch (const invalid_argument& e) {
                 cout << e.what() << endl;
             }
+            break;
+
+        case 42:
+            cout << "Enter two binary numbers: ";
+            cin >> binary1 >> binary2;
+            cout << "Result: " << binaryAddition(binary1, binary2) << endl;
+            break;
+        case 43:
+            cout << "Enter two binary numbers: ";
+            cin >> binary1 >> binary2;
+            cout << "Result: " << binarySubtraction(binary1, binary2) << endl;
+            break;
+        case 44:
+            cout << "Enter two binary numbers: ";
+            cin >> binary1 >> binary2;
+            cout << "Result: " << binaryMultiplication(binary1, binary2) << endl;
+            break;
+        case 45:
+            cout << "Enter two binary numbers: ";
+            cin >> binary1 >> binary2;
+            try {
+                cout << "Result: " << binaryDivision(binary1, binary2) << endl;
+            } catch (const invalid_argument& e) {
+                cout << e.what() << endl;
+            }
+            break;
+        case 46:
+            cout << "Enter two binary numbers: ";
+            cin >> binary1 >> binary2;
+            cout << "Result: " << binaryAND(binary1, binary2) << endl;
+            break;
+        case 47:
+            cout << "Enter two binary numbers: ";
+            cin >> binary1 >> binary2;
+            cout << "Result: " << binaryOR(binary1, binary2) << endl;
+            break;
+        case 48:
+            cout << "Enter two binary numbers: ";
+            cin >> binary1 >> binary2;
+            cout << "Result: " << binaryXOR(binary1, binary2) << endl;
             break;
       
       default:
